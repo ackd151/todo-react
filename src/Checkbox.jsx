@@ -1,27 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./Checkbox.css";
 
-const Checkbox = ({ completed, onCheck }) => {
-  const [isChecked, setIsChecked] = useState(completed);
-
-  const handleCheck = () => {
-    const status = !isChecked;
-    setIsChecked(status);
-    onCheck();
-  };
-
+const Checkbox = ({ checked, onCheck }) => {
   return (
     <label className='checkbox-label'>
-      <input type='checkbox' onChange={handleCheck} />
+      <input type='checkbox' onChange={onCheck} />
       <svg
-        className={`checkbox ${isChecked ? "checked" : ""}`}
+        className={`checkbox ${checked ? "checked" : ""}`}
         aria-hidden='true'
         fill='none'
         viewBox='-4 0 20 10'
       >
         <path
-          stroke={isChecked ? "#FFF" : "none"}
+          stroke={checked ? "#FFF" : "none"}
           strokeWidth='2'
           d='M1 4.304L3.696 7l6-6'
         />

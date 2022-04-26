@@ -1,4 +1,4 @@
-export const todos = [
+const todos = [
   {
     id: 1,
     content: "Complete online JavaScript course",
@@ -30,3 +30,5 @@ export const todos = [
     complete: false,
   },
 ];
+
+export default todos;
