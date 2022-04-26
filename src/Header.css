@@ -1,0 +1,24 @@
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header > .title {
+  text-transform: uppercase;
+  color: var(--color-title);
+  letter-spacing: 1rem;
+  font-size: 2.5rem;
+}
+
+.theme-toggler {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+}
+.theme-toggle-img {
+  height: 2rem;
+  width: 2rem;
+}

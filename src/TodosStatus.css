@@ -1,0 +1,23 @@
+.todos-status-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+
+.items-left {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.filters {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.filter.selected {
+  color: var(--color-primary-blue);
+}

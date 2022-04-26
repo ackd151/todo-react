@@ -1,0 +1,6 @@
+.todos-block {
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: var(--color-todo-bg);
+}

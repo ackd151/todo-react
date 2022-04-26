@@ -1,38 +1,98 @@
-.App {
-  text-align: center;
+:root,
+:root.light {
+  --color-primary-blue: hsl(220, 98%, 61%);
+  --color-primary-teal: hsl(192, 100%, 67%);
+  --color-primary-purple: hsl(280, 87%, 65%);
+
+  --color-title: hsl(0, 0%, 98%);
+
+  --color-bg: hsl(236, 33%, 92%);
+  --color-todo-bg: hsl(0, 0%, 98%);
+  --color-text-muted: hsl(236, 9%, 61%);
+  --color-text: hsl(235, 19%, 35%);
+
+  /* Very Light Gray: hsl(0, 0%, 98%)
+- Very Light Grayish Blue: hsl(236, 33%, 92%)
+- Light Grayish Blue: hsl(233, 11%, 84%)
+- Dark Grayish Blue: hsl(236, 9%, 61%)
+- Very Dark Grayish Blue: hsl(235, 19%, 35%)
+*/
+}
+:root.dark {
+  --color-bg: hsl(235, 21%, 11%);
+  --color-todo-bg: hsl(235, 24%, 19%);
+  --color-text: hsl(236, 33%, 92%);
+
+  /*
+- Very Dark Blue: hsl(235, 21%, 11%)
+- Very Dark Desaturated Blue: hsl(235, 24%, 19%)
+- Light Grayish Blue: hsl(234, 39%, 85%)
+- Light Grayish Blue (hover): hsl(236, 33%, 92%)
+- Dark Grayish Blue: hsl(234, 11%, 52%)
+- Very Dark Grayish Blue: hsl(233, 14%, 35%)
+- Very Dark Grayish Blue: hsl(237, 14%, 26%)
+*/
+}
+/* [data-theme="dark"] {
+} */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  border: none;
+  background-color: transparent;
+}
+button:hover,
+label:hover {
+  cursor: pointer;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+  font-family: "Josefine Sans", sans-serif;
+  font-size: 18px;
+  font-weight: 600;
 }
 
-.App-header {
-  background-color: #282c34;
+body {
   min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+.App {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-bg {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 33vh;
+}
+.app-bg > img {
+  width: 100%;
+  background-size: cover;
+}
+
+main {
+  margin: 5rem;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  gap: 1rem;
+  color: var(--color-text);
 }

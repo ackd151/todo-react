@@ -1,0 +1,24 @@
+.new-todo_block {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--color-todo-bg);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.new-todo_cb {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.new-todo_input {
+  width: 100%;
+  border: none;
+  background-color: var(--color-todo-bg);
+}
+
+.new-todo_input:focus {
+  outline: none;
+}
