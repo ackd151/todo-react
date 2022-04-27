@@ -7,23 +7,16 @@
   border-bottom: 1px solid var(--color-text-muted);
 }
 
-.todo-data {
-  width: 100%;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
 .todo-content {
   width: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
-.todo-content:hover {
+.todo-item:hover {
   cursor: pointer;
 }
-.todo-content:hover > .delete-icon {
+.todo-item:hover > .delete-icon {
   visibility: visible;
 }
 .delete-icon {

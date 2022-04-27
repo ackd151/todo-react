@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Header from "./Header";
 import NewTodo from "./NewTodo";
 import Todos from "./Todos";
@@ -35,12 +35,11 @@ function App() {
     JSON.parse(localStorage.getItem("todo-list")) || staticData
   );
 
-  useEffect(() => {
-    localStorage.setItem("todo-list", JSON.stringify(todosState));
-  }, [todosState]);
+  // useEffect(() => {
+  //   localStorage.setItem("todo-list", JSON.stringify(todosState));
+  // }, [todosState]);
 
   const onCompleteHandler = (id) => {
-    console.log("what happened");
     setTodosState((prevState) => {
       const newState = prevState.map((todo) => {
         if (todo.id === id) {
@@ -82,6 +81,20 @@ function App() {
       return [...newState];
     });
   };
+
+  const moveTodoHandler = (draggedIndex, hoveredIndex) => {
+    console.log("triggered move");
+    console.log(todosState);
+    const draggedTodo = todosState[draggedIndex];
+    const hoveredTodo = todosState[hoveredIndex];
+    // Reorder todos
+    setTodosState((prevState) => {
+      const newState = [...prevState];
+      newState[draggedIndex] = hoveredTodo;
+      newState[hoveredIndex] = draggedTodo;
+      return [...newState];
+    });
+  };
   /** end - TODOS state mgmt */
 
   return (
@@ -100,6 +113,7 @@ function App() {
           onCheck={onCompleteHandler}
           onDelete={onDeleteHandler}
           onClear={clearCompletedHandler}
+          moveTodo={moveTodoHandler}
         />
       </main>
     </div>

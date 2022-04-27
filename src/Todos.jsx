@@ -1,11 +1,13 @@
 import React, { useState } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import Todo from "./Todo";
 import TodosStatus from "./TodosStatus";
 import { calculateItemsLeft } from "./utils/todoUtils";
 
 import "./Todos.css";
 
-const Todos = ({ todos, onCheck, onDelete, onClear }) => {
+const Todos = ({ todos, onCheck, onDelete, onClear, moveTodo }) => {
   /** FILTER state mgmt */
   const [filter, setFilter] = useState("all");
 
@@ -25,24 +27,28 @@ const Todos = ({ todos, onCheck, onDelete, onClear }) => {
 
   return (
     <div className='todos-block'>
-      {/* must be a better way... */}
-      {todos.map((todo) => {
-        const comp = (
-          <Todo
-            key={todo.id}
-            todo={todo}
-            onCheck={() => onCheck(todo.id)}
-            onDelete={() => onDelete(todo.id)}
-          />
-        );
-        if (filter === "completed") {
-          return todo.complete && comp;
-        } else if (filter === "active") {
-          return !todo.complete && comp;
-        } else {
-          return comp;
-        }
-      })}
+      <DndProvider backend={HTML5Backend}>
+        {/* must be a better way... (to filter)*/}
+        {todos.map((todo, idx) => {
+          const comp = (
+            <Todo
+              key={todo.id}
+              idx={idx}
+              todo={todo}
+              onCheck={() => onCheck(todo.id)}
+              onDelete={() => onDelete(todo.id)}
+              moveTodo={moveTodo}
+            />
+          );
+          if (filter === "completed") {
+            return todo.complete && comp;
+          } else if (filter === "active") {
+            return !todo.complete && comp;
+          } else {
+            return comp;
+          }
+        })}
+      </DndProvider>
       <TodosStatus
         filter={filter}
         onFilterSelect={filterSelectHandler}
