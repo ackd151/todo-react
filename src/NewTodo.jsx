@@ -1,25 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Checkbox from "./Checkbox";
 
 import "./NewTodo.css";
 
 const NewTodo = ({ onCheck }) => {
-  const placeHolder = "Create a new todo...";
-  const [todoContent, setTodoContent] = useState(placeHolder);
+  //   const placeHolder = "Create a new todo...";
+  const [todoContent, setTodoContent] = useState("");
+
+  const inputRef = useRef();
 
   const contentChangeHandler = (ev) => {
     setTodoContent(ev.target.value);
   };
-  const focusHandler = () => {
-    setTodoContent("");
+
+  const onKeyDown = (ev) => {
+    if (ev.key === "Enter") {
+      onSubmitHandler();
+    }
   };
 
   const onSubmitHandler = () => {
+    if (todoContent.length === 0) {
+      ////////// implement alert/validation
+      return;
+    }
     const newTodo = {
       content: todoContent,
       complete: false,
     };
-    setTodoContent(placeHolder);
+    inputRef.current.blur();
+    setTodoContent("");
     onCheck(newTodo);
   };
 
@@ -29,10 +39,11 @@ const NewTodo = ({ onCheck }) => {
       <input
         type='text'
         className='new-todo_input'
-        // placeholder='Create a new todo...'
-        onFocus={focusHandler}
+        placeholder='Create a new todo...'
+        ref={inputRef}
         value={todoContent}
         onChange={contentChangeHandler}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

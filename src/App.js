@@ -30,31 +30,19 @@ function App() {
   /** end - THEME mgmt */
 
   /** TODOS state mgmt */
-  // dev static data
-  // const [todosState, setTodosState] = useState(staticData);
-  ///////
-  localStorage.removeItem("todo-list");
-  const storedData =
-    JSON.parse(localStorage.getItem("todo-list")) || staticData;
-
-  const [todosState, setTodosState] = useState(storedData);
-  // console.log("local: ", storedData);
-  // console.log(todosState);
-
-  // useEffect(() => {
-  //   const todos = JSON.parse(localStorage.getItem("todo-list"));
-  //   if (todos) {
-  //     setTodosState(todos);
-  //   }
-  // }, []);
+  // localStorage.removeItem("todo-list");
+  const [todosState, setTodosState] = useState(
+    JSON.parse(localStorage.getItem("todo-list")) || staticData
+  );
 
   useEffect(() => {
     localStorage.setItem("todo-list", JSON.stringify(todosState));
   }, [todosState]);
 
   const onCompleteHandler = (id) => {
+    console.log("what happened");
     setTodosState((prevState) => {
-      let newState = prevState.map((todo) => {
+      const newState = prevState.map((todo) => {
         if (todo.id === id) {
           return { ...todo, complete: !todo.complete };
         }
@@ -67,9 +55,31 @@ function App() {
   const onAddHandler = (newTodo) => {
     newTodo.id = getNewId(todosState);
     setTodosState((prevState) => {
-      const newState = [...prevState];
-      newState.push(newTodo);
-      return newState;
+      prevState.push(newTodo);
+      return [...prevState];
+    });
+  };
+
+  const onDeleteHandler = (id) => {
+    setTodosState((prevState) => {
+      let idx = null;
+      for (const i in prevState) {
+        if (prevState[i].id === id) {
+          idx = i;
+        }
+      }
+      if (idx) {
+        return [...prevState.splice(idx, 1)];
+      }
+      console.log("How you get hurrr?");
+      return [...prevState];
+    });
+  };
+
+  const clearCompletedHandler = () => {
+    setTodosState((prevState) => {
+      const newState = prevState.filter((todo) => !todo.complete);
+      return [...newState];
     });
   };
   /** end - TODOS state mgmt */
@@ -85,7 +95,12 @@ function App() {
       <main className='app-content'>
         <Header theme={theme} onThemeToggle={themeToggleHandler} />
         <NewTodo onCheck={onAddHandler} />
-        <Todos todos={todosState} onCheck={onCompleteHandler} />
+        <Todos
+          todos={todosState}
+          onCheck={onCompleteHandler}
+          onDelete={onDeleteHandler}
+          onClear={clearCompletedHandler}
+        />
       </main>
     </div>
   );

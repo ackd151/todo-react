@@ -22,3 +22,6 @@
 .new-todo_input:focus {
   outline: none;
 }
+.new-todo_input:focus::placeholder {
+  color: transparent;
+}

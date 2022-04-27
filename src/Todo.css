@@ -4,13 +4,36 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--color-text);
+  border-bottom: 1px solid var(--color-text-muted);
 }
 
 .todo-data {
+  width: 100%;
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+.todo-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.todo-content:hover {
+  cursor: pointer;
+}
+.todo-content:hover > .delete-icon {
+  visibility: visible;
+}
+.delete-icon {
+  visibility: hidden;
+}
+.delete-icon path {
+  fill: var(--color-text-muted);
+}
+.delete-icon:hover path {
+  fill: var(--color-text);
 }
 
 .complete {

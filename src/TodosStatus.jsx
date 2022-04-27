@@ -1,35 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./TodosStatus.css";
 
-const TodosStatus = ({ itemsLeft, onFilterSelect, onClear }) => {
-  const [filter, setFilter] = useState("all");
-
+const TodosStatus = ({ counter, onFilterSelect, filter, onClear }) => {
   return (
     <div className='todos-status-block'>
-      <p className='items-left'>{`${itemsLeft} items left`}</p>
+      <p className='items-left'>{counter}</p>
       <div className='filters'>
         <button
           className={`filter ${filter === "all" ? "selected" : ""}`}
           value={"all"}
+          onClick={() => onFilterSelect("all")}
         >
           All
         </button>
         <button
           className={`filter ${filter === "active" ? "selected" : ""}`}
           value={"active"}
+          onClick={() => onFilterSelect("active")}
         >
           Active
         </button>
         <button
           className={`filter ${filter === "completed" ? "selected" : ""}`}
           value={"completed"}
+          onClick={() => onFilterSelect("completed")}
         >
           Completed
         </button>
       </div>
       <div className='clear'>
-        <button value={"clear"}>Clear Completed</button>
+        <button value={"clear"} onClick={onClear}>
+          Clear Completed
+        </button>
       </div>
     </div>
   );
