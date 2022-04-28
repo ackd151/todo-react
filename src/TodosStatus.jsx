@@ -1,4 +1,5 @@
 import React from "react";
+import Filters from "./Filters";
 
 import "./TodosStatus.css";
 
@@ -6,29 +7,11 @@ const TodosStatus = ({ counter, onFilterSelect, filter, onClear }) => {
   return (
     <div className='todos-status-block'>
       <p className='items-left'>{counter}</p>
-      <div className='filters'>
-        <button
-          className={`filter ${filter === "all" ? "selected" : ""}`}
-          value={"all"}
-          onClick={() => onFilterSelect("all")}
-        >
-          All
-        </button>
-        <button
-          className={`filter ${filter === "active" ? "selected" : ""}`}
-          value={"active"}
-          onClick={() => onFilterSelect("active")}
-        >
-          Active
-        </button>
-        <button
-          className={`filter ${filter === "completed" ? "selected" : ""}`}
-          value={"completed"}
-          onClick={() => onFilterSelect("completed")}
-        >
-          Completed
-        </button>
-      </div>
+      <Filters
+        filter={filter}
+        onFilterSelect={onFilterSelect}
+        displayClass={"desktop-filters"}
+      />
       <div className='clear'>
         <button value={"clear"} onClick={onClear}>
           Clear Completed

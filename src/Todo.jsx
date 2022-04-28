@@ -43,9 +43,7 @@ const Todo = ({ todo, idx, onCheck, onDelete, moveTodo }) => {
     <div className='todo-item' ref={dragDropRef}>
       <div className={`todo-content ${todo.complete ? "complete" : ""}`}>
         <Checkbox checked={todo.complete} onCheck={onCheck} />
-        <p onClick={onCheck}>
-          {todo.content} {todo.id}
-        </p>
+        <p onClick={onCheck}>{todo.content}</p>
       </div>
       <DeleteIcon
         className='delete-icon'

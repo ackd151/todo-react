@@ -1,0 +1,31 @@
+.filters {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.filter.selected {
+  color: var(--color-primary-blue);
+}
+
+.mobile-filters {
+  background-color: var(--color-todo-bg);
+  padding: 1rem;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+@media screen and (max-width: 900px) {
+  .filters {
+    gap: 1rem;
+  }
+}
+@media screen and (max-width: 700px) {
+  .desktop-filters {
+    display: none;
+  }
+  .mobile-filters {
+    display: flex;
+  }
+}

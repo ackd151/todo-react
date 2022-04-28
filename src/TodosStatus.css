@@ -16,12 +16,3 @@
   font-size: 0.8rem;
   font-weight: 500;
 }
-
-.filters {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.filter.selected {
-  color: var(--color-primary-blue);
-}
