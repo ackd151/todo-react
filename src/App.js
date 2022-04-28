@@ -30,14 +30,18 @@ function App() {
   /** end - THEME mgmt */
 
   /** TODOS state mgmt */
-  // localStorage.removeItem("todo-list");
   const [todosState, setTodosState] = useState(
-    JSON.parse(localStorage.getItem("todo-list")) || staticData
+    JSON.parse(localStorage.getItem("todo-list")) || [...staticData]
   );
 
-  // useEffect(() => {
-  //   localStorage.setItem("todo-list", JSON.stringify(todosState));
-  // }, [todosState]);
+  const resetHandler = () => {
+    localStorage.removeItem("todo-list");
+    setTodosState([...staticData]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("todo-list", JSON.stringify(todosState));
+  }, [todosState]);
 
   const onCompleteHandler = (id) => {
     setTodosState((prevState) => {
@@ -59,7 +63,7 @@ function App() {
     });
   };
 
-  const onDeleteHandler = (id) => {
+  const onDeleteHandler = useCallback((id) => {
     setTodosState((prevState) => {
       let idx = null;
       for (const i in prevState) {
@@ -68,12 +72,13 @@ function App() {
         }
       }
       if (idx) {
-        return [...prevState.splice(idx, 1)];
+        prevState.splice(idx, 1);
+        return [...prevState];
       }
-      console.log("How you get hurrr?");
+      console.log("Uh oh, shouldn't be here...");
       return [...prevState];
     });
-  };
+  }, []);
 
   const clearCompletedHandler = () => {
     setTodosState((prevState) => {
@@ -82,19 +87,20 @@ function App() {
     });
   };
 
-  const moveTodoHandler = (draggedIndex, hoveredIndex) => {
-    console.log("triggered move");
-    console.log(todosState);
-    const draggedTodo = todosState[draggedIndex];
-    const hoveredTodo = todosState[hoveredIndex];
-    // Reorder todos
-    setTodosState((prevState) => {
-      const newState = [...prevState];
-      newState[draggedIndex] = hoveredTodo;
-      newState[hoveredIndex] = draggedTodo;
-      return [...newState];
-    });
-  };
+  const moveTodoHandler = useCallback(
+    (draggedIndex, hoveredIndex) => {
+      const draggedTodo = todosState[draggedIndex];
+      const hoveredTodo = todosState[hoveredIndex];
+      // Reorder todos
+      setTodosState((prevState) => {
+        const newState = [...prevState];
+        newState[draggedIndex] = hoveredTodo;
+        newState[hoveredIndex] = draggedTodo;
+        return [...newState];
+      });
+    },
+    [todosState]
+  );
   /** end - TODOS state mgmt */
 
   return (
@@ -106,7 +112,11 @@ function App() {
         />
       </div>
       <main className='app-content'>
-        <Header theme={theme} onThemeToggle={themeToggleHandler} />
+        <Header
+          theme={theme}
+          onThemeToggle={themeToggleHandler}
+          onReset={resetHandler}
+        />
         <NewTodo onCheck={onAddHandler} />
         <Todos
           todos={todosState}
@@ -116,6 +126,7 @@ function App() {
           moveTodo={moveTodoHandler}
         />
       </main>
+      <footer>Drag and drop to reorder list</footer>
     </div>
   );
 }

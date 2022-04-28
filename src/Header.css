@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
 }
-.header > .title {
+.header .title {
   text-transform: uppercase;
   color: var(--color-title);
   letter-spacing: 1rem;
@@ -21,4 +21,15 @@
 .theme-toggle-img {
   height: 2rem;
   width: 2rem;
+}
+
+.reset-btn {
+  color: var(--color-title);
+  font-size: 0.8rem;
+  align-self: flex-end;
+  padding: 0.5rem;
+  opacity: 0.7;
+}
+.reset-btn:hover {
+  opacity: 1;
 }
