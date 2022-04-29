@@ -15,6 +15,7 @@
 }
 
 .new-todo_input {
+  caret-color: var(--color-primary-blue);
   width: 100%;
   border: none;
   background-color: var(--color-todo-bg);

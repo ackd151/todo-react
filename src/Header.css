@@ -22,6 +22,9 @@
   height: 2rem;
   width: 2rem;
 }
+.theme-toggle-img:hover {
+  opacity: 0.7;
+}
 
 .reset-btn {
   color: var(--color-title);

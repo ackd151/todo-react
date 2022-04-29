@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# Todo React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Another [Frontend Mentor](https://www.frontendmentor.io/home) cahllenge implemented using [React](https://reactjs.org/)
 
-## Available Scripts
+This is my third Frontend Mentor challenge implemented using React. The [Todo](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW/hub/todo-app-Skb3THXHq) cahellenge is listed at intermediate level.
 
-In the project directory, you can run:
+### Motivation
 
-### `npm start`
+Again, just for self-edification.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Tools
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React, React DnD, NodeJS, HTML, CSS, GH-Pages, using local storage as a low-level persistence mechanism
 
-### `npm test`
+### Lessons/Thoughts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- This was my first time implementing drag and drop functionality. I used the [React DnD](https://react-dnd.github.io/react-dnd/about) package as it had the highest rating on the Googles. It wasn't until after I had it working that I realized it does not work for touch devices, though they do offer a touch version as well. Next time I will plan accordingly.
+- Regarding the DnD functionality, there is still an occasional catastrophic bug where the dragged item will duplicate itself many times and break the app. My guess is that the state management is getting out of sync and assigning the item to indices in the containing array where it shouldn't. It would be great to fix this error but I've exceeded what I consider to be a reasonable time investment for this non-production, purely educational project.
+- On app state management. This app would likely have benefited from using useReducer instead of multiple useState's. Now that I have a little more experience with React I should be able to recognize this in the planning/requirements stage.
+- Again, the limited functionality description provided in the challenge docs left me with an unused checkbox in the 'new todo' input. I set it so that it will submit the todo when checked (just hitting enter seemed more logical so that was implemented as well), but once submitted the input needs to be reset anyway, so the custom checkbox never appears. I left it simply because the design images show it there.
+- The app background image changing according to both the chosen theme and device width gave me more trouble than I'd like to admit and the implementation I ended up with seems far from elegant. Functionally it appears to be correct though so I will leave it as is. It's time for the next challenge anyway.

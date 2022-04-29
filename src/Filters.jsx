@@ -1,31 +1,26 @@
 import React from "react";
+import FilterButton from "./FilterButton";
 
 import "./Filters.css";
 
 const Filters = ({ displayClass, filter, onFilterSelect }) => {
   return (
     <div className={`filters ${displayClass}`}>
-      <button
-        className={`filter ${filter === "all" ? "selected" : ""}`}
-        value={"all"}
-        onClick={() => onFilterSelect("all")}
-      >
-        All
-      </button>
-      <button
-        className={`filter ${filter === "active" ? "selected" : ""}`}
-        value={"active"}
-        onClick={() => onFilterSelect("active")}
-      >
-        Active
-      </button>
-      <button
-        className={`filter ${filter === "completed" ? "selected" : ""}`}
-        value={"completed"}
-        onClick={() => onFilterSelect("completed")}
-      >
-        Completed
-      </button>
+      <FilterButton
+        filter={filter}
+        onFilterSelect={onFilterSelect}
+        filterTag='all'
+      />
+      <FilterButton
+        filter={filter}
+        onFilterSelect={onFilterSelect}
+        filterTag='active'
+      />
+      <FilterButton
+        filter={filter}
+        onFilterSelect={onFilterSelect}
+        filterTag='completed'
+      />
     </div>
   );
 };

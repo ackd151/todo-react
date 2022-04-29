@@ -4,7 +4,6 @@ import Checkbox from "./Checkbox";
 import "./NewTodo.css";
 
 const NewTodo = ({ onCheck }) => {
-  //   const placeHolder = "Create a new todo...";
   const [todoContent, setTodoContent] = useState("");
 
   const inputRef = useRef();
@@ -21,7 +20,6 @@ const NewTodo = ({ onCheck }) => {
 
   const onSubmitHandler = () => {
     if (todoContent.length === 0) {
-      ////////// implement alert/validation
       return;
     }
     const newTodo = {

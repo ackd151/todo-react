@@ -1,0 +1,7 @@
+.filter.selected {
+  color: var(--color-primary-blue);
+}
+
+.filter {
+  text-transform: capitalize;
+}

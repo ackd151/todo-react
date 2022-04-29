@@ -3,10 +3,6 @@
   gap: 1.5rem;
 }
 
-.filter.selected {
-  color: var(--color-primary-blue);
-}
-
 .mobile-filters {
   background-color: var(--color-todo-bg);
   padding: 1rem;

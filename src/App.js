@@ -2,16 +2,17 @@ import { useCallback, useEffect, useState } from "react";
 import Header from "./Header";
 import NewTodo from "./NewTodo";
 import Todos from "./Todos";
-
+import {
+  addTodoLogic,
+  completeTodoLogic,
+  deleteTodoLogic,
+  clearCompletedLogic,
+} from "./utils/todoStateLogic";
 import bgDeskLight from "./assets/bg-desktop-light.jpg";
 import bgDeskDark from "./assets/bg-desktop-dark.jpg";
 import bgMobileLight from "./assets/bg-mobile-light.jpg";
 import bgMobileDark from "./assets/bg-mobile-dark.jpg";
-
-import { getNewId } from "./utils/todoUtils";
-
 import "./App.css";
-
 // Static dev-data
 import staticData from "./devData";
 
@@ -29,11 +30,24 @@ function debounce(fn, ms) {
 
 function App() {
   /* THEME mgmt*/
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme"));
+  const [screenType, setScreenType] = useState(
+    window.innerWidth < 700 ? "mobile" : "desktop"
+  );
+  const [bgImg, setBgImg] = useState(bgDeskLight);
+
   useEffect(() => {
-    console.log(localStorage.getItem("theme"));
+    setTheme(() => {
+      const savedTheme = localStorage.getItem("theme");
+      bgImgSetter(screenType, savedTheme);
+      return savedTheme;
+    });
+  }, [screenType]);
+
+  useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
+
   useEffect(() => {
     setDocumentTheme(theme);
   }, [theme]);
@@ -48,14 +62,11 @@ function App() {
     });
   };
 
-  const [bgImg, setBgImg] = useState(bgDeskLight);
   const bgImgSetter = (screenType, theme) => {
     setBgImg(() => {
       if (theme === "light") {
-        // console.log("light");
         return screenType === "desktop" ? bgDeskLight : bgMobileLight;
       } else {
-        // console.log("dark");
         return screenType === "desktop" ? bgDeskDark : bgMobileDark;
       }
     });
@@ -65,10 +76,6 @@ function App() {
     (document.documentElement.className = theme);
 
   // listen for resize
-  const [screenType, setScreenType] = useState(
-    window.innerWidth < 700 ? "mobile" : "desktop"
-  );
-  console.log(screenType);
   useEffect(() => {
     const debounceHandleResize = debounce(function handleResize() {
       const newScreenType = window.innerWidth < 700 ? "mobile" : "desktop";
@@ -87,57 +94,35 @@ function App() {
     JSON.parse(localStorage.getItem("todo-list")) || [...staticData]
   );
 
+  // Update localStorage when todosState changes
+  useEffect(() => {
+    localStorage.setItem("todo-list", JSON.stringify(todosState));
+  }, [todosState]);
+
+  // Reset todos to static data provided by Frontend Mentor
   const resetHandler = () => {
     localStorage.removeItem("todo-list");
     setTodosState([...staticData]);
   };
 
-  useEffect(() => {
-    localStorage.setItem("todo-list", JSON.stringify(todosState));
-  }, [todosState]);
-
+  // Set complete => !complete for todo by id
   const onCompleteHandler = (id) => {
-    setTodosState((prevState) => {
-      const newState = prevState.map((todo) => {
-        if (todo.id === id) {
-          return { ...todo, complete: !todo.complete };
-        }
-        return { ...todo };
-      });
-      return [...newState];
-    });
+    setTodosState((prevState) => completeTodoLogic(prevState, id));
   };
 
+  // Add todo
   const onAddHandler = (newTodo) => {
-    newTodo.id = getNewId(todosState);
-    setTodosState((prevState) => {
-      prevState.push(newTodo);
-      return [...prevState];
-    });
+    setTodosState((prevState) => addTodoLogic(prevState, newTodo));
   };
 
+  // Remove todo
   const onDeleteHandler = useCallback((id) => {
-    setTodosState((prevState) => {
-      let idx = null;
-      for (const i in prevState) {
-        if (prevState[i].id === id) {
-          idx = i;
-        }
-      }
-      if (idx) {
-        prevState.splice(idx, 1);
-        return [...prevState];
-      }
-      console.log("Uh oh, shouldn't be here...");
-      return [...prevState];
-    });
+    setTodosState((prevState) => deleteTodoLogic(prevState, id));
   }, []);
 
+  // Clear completed todos
   const clearCompletedHandler = () => {
-    setTodosState((prevState) => {
-      const newState = prevState.filter((todo) => !todo.complete);
-      return [...newState];
-    });
+    setTodosState((prevState) => clearCompletedLogic(prevState));
   };
 
   // Drag and drop callback
@@ -177,9 +162,11 @@ function App() {
           moveTodo={moveTodoHandler}
         />
       </main>
-      {screenType === "desktop" && (
-        <footer>Drag and drop to reorder list</footer>
-      )}
+      {
+        screenType === "desktop" && (
+          <footer>Drag and drop to reorder list</footer>
+        ) /* React DnD doesn't work for touch devices */
+      }
     </div>
   );
 }
